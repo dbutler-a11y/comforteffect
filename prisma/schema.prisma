@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Email Subscribers
+model Subscriber {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  name            String?
+  subscribedAt    DateTime  @default(now())
+  welcomeEmailSent Boolean  @default(false)
+  isActive        Boolean   @default(true)
+  source          String?   // e.g., "landing_page", "checkout", "lead_magnet"
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+// Customer Purchases
+model Purchase {
+  id            String    @id @default(cuid())
+  email         String
+  name          String?
+  product       String    // e.g., "comfort_effect_bundle"
+  amount        Float
+  currency      String    @default("USD")
+  status        String    @default("completed") // completed, refunded, pending
+  paymentMethod String?   // paypal, stripe
+  transactionId String?
+  purchasedAt   DateTime  @default(now())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Team Members for CRM
+model TeamMember {
+  id              String    @id @default(cuid())
+  name            String
+  role            String    // e.g., "Ads Manager", "Content Creator"
+  email           String?
+  monthlyPay      Float     @default(0)
+  healthScore     Float     @default(0) // 0-100 percentage
+  tasksCompleted  Int       @default(0)
+  tasksTotal      Int       @default(0)
+  notes           String?
+  isActive        Boolean   @default(true)
+  hiredAt         DateTime  @default(now())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+// Site Pages for Link Testing
+model SitePage {
+  id          String    @id @default(cuid())
+  path        String    @unique
+  name        String
+  status      String    @default("untested") // working, error, untested
+  lastTested  DateTime?
+  responseTime Int?     // ms
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// Business Metrics (daily snapshots)
+model BusinessMetric {
+  id              String    @id @default(cuid())
+  date            DateTime  @default(now()) @unique
+  totalSubscribers Int      @default(0)
+  newSubscribers   Int      @default(0)
+  totalSales       Int      @default(0)
+  newSales         Int      @default(0)
+  totalRevenue     Float    @default(0)
+  newRevenue       Float    @default(0)
+  conversionRate   Float    @default(0)
+  healthScore      Float    @default(0)
+  createdAt        DateTime @default(now())
+}
+
+// Admin Users
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String?
+  role         String    @default("admin") // admin, super_admin
+  lastLogin    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+// Activity Log for audit trail
+model ActivityLog {
+  id          String    @id @default(cuid())
+  action      String    // e.g., "subscriber_added", "purchase_completed"
+  entityType  String?   // e.g., "subscriber", "purchase"
+  entityId    String?
+  details     String?   // JSON string with additional data
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime  @default(now())
+}

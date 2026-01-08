@@ -126,7 +126,7 @@ export default function Home() {
               poster="/videos/poster.jpg"
               className="w-full h-full object-cover"
             >
-              <source src="/videos/testimonial_1.mp4" type="video/mp4" />
+              <source src="/videos/testimonial_2.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
@@ -337,7 +337,7 @@ export default function Home() {
                 controls
                 className="w-full h-full object-cover"
               >
-                <source src="/videos/testimonial_1.mp4" type="video/mp4" />
+                <source src="/videos/testimonial_2.mp4" type="video/mp4" />
               </video>
             </div>
             <div className="video-container aspect-video">
@@ -345,7 +345,7 @@ export default function Home() {
                 controls
                 className="w-full h-full object-cover"
               >
-                <source src="/videos/testimonial_2.mp4" type="video/mp4" />
+                <source src="/videos/testimonial_1.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
