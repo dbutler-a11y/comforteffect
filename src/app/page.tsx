@@ -1,154 +1,183 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Home() {
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+
   return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="hero-gradient min-h-screen flex items-center relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-pink-500 rounded-full blur-3xl"></div>
+    <main className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="text-lg font-semibold tracking-tight">The Comfort Effect</div>
+          <a
+            href="#get-started"
+            className="btn-primary px-5 py-2.5 rounded-full text-sm font-medium"
+          >
+            Get Started
+          </a>
         </div>
+      </nav>
 
-        <div className="container mx-auto px-6 py-20 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white/80 text-sm mb-8">
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-              10,000+ People Have Transformed Their Lives
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 md:pt-40 md:pb-32">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          {/* Badge */}
+          <div className="badge mb-8 mx-auto">
+            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+            10,000+ lives transformed
+          </div>
+
+          {/* Main Headline */}
+          <h1 className="heading-xl text-zinc-900 mb-6">
+            Stop letting fear
+            <span className="block text-zinc-400">steal your future</span>
+          </h1>
+
+          {/* Subheadline */}
+          <p className="body-lg max-w-2xl mx-auto mb-10">
+            The proven 21-day system that transforms self-doubt into
+            unstoppable confidence. No therapy. No mantras. Just results.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <a
+              href="#get-started"
+              className="btn-primary px-8 py-4 rounded-full text-base font-medium"
+            >
+              Get Instant Access — $17
+            </a>
+            <a
+              href="#video"
+              className="btn-secondary px-6 py-4 rounded-full text-base font-medium flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+              </svg>
+              Watch How It Works
+            </a>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="flex flex-wrap justify-center gap-8 text-sm text-zinc-500">
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              30-day guarantee
             </div>
-
-            {/* Main Headline */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
-              Stop Letting Fear
-              <span className="block gradient-text">Steal Your Future</span>
-            </h1>
-
-            {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed">
-              The proven 21-day system that turns self-doubt into unstoppable confidence.
-              No therapy. No mantras. Just <span className="text-yellow-400 font-semibold">real results</span>.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <a
-                href="#get-started"
-                className="cta-button pulse-cta bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full text-lg font-semibold"
-              >
-                Get Instant Access - Only $17
-              </a>
-              <a
-                href="#how-it-works"
-                className="text-white/80 hover:text-white flex items-center gap-2 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                </svg>
-                See How It Works
-              </a>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Instant access
             </div>
-
-            {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-8 text-white/60 text-sm">
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                30-Day Money Back Guarantee
-              </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                Instant Digital Access
-              </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                Works in 72 Hours
-              </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Results in 72 hours
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 float">
-          <svg className="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
+      {/* Stats Section */}
+      <section className="py-16 border-y border-zinc-100">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-semibold text-zinc-900 number-highlight mb-1">10K+</div>
+              <div className="text-sm text-zinc-500">Lives Transformed</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-semibold text-zinc-900 number-highlight mb-1">98%</div>
+              <div className="text-sm text-zinc-500">Success Rate</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-semibold text-zinc-900 number-highlight mb-1">21</div>
+              <div className="text-sm text-zinc-500">Days to Transform</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-semibold text-zinc-900 number-highlight mb-1">4.9</div>
+              <div className="text-sm text-zinc-500">Average Rating</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Social Proof Stats */}
-      <section className="py-16 bg-white border-b">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center stat-item">
-              <div className="text-4xl md:text-5xl font-bold text-purple-600 mb-2">10K+</div>
-              <div className="text-gray-600">Lives Transformed</div>
-            </div>
-            <div className="text-center stat-item" style={{animationDelay: '0.1s'}}>
-              <div className="text-4xl md:text-5xl font-bold text-purple-600 mb-2">98%</div>
-              <div className="text-gray-600">Success Rate</div>
-            </div>
-            <div className="text-center stat-item" style={{animationDelay: '0.2s'}}>
-              <div className="text-4xl md:text-5xl font-bold text-purple-600 mb-2">21</div>
-              <div className="text-gray-600">Days to Transform</div>
-            </div>
-            <div className="text-center stat-item" style={{animationDelay: '0.3s'}}>
-              <div className="text-4xl md:text-5xl font-bold text-purple-600 mb-2">4.9</div>
-              <div className="text-gray-600">Average Rating</div>
-            </div>
+      {/* Video Section */}
+      <section className="section-padding bg-zinc-50" id="video">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="heading-lg text-zinc-900 mb-4">
+              See the transformation
+            </h2>
+            <p className="body-lg max-w-xl mx-auto">
+              Watch how real people overcame their fears and transformed their lives.
+            </p>
+          </div>
+
+          <div className="video-container aspect-video">
+            <video
+              controls
+              poster="/videos/poster.jpg"
+              className="w-full h-full object-cover"
+            >
+              <source src="/videos/testimonial_1.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </section>
 
       {/* Problem Section */}
-      <section className="py-20 bg-gray-50" id="how-it-works">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              You Know That Feeling...
+      <section className="section-padding" id="how-it-works">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="heading-lg text-zinc-900 mb-4">
+              You know that feeling...
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="body-lg max-w-xl mx-auto">
               That moment when opportunity knocks, but something inside you freezes.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-              <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="card-elevated p-8 rounded-2xl">
+              <div className="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center mb-5">
+                <svg className="w-5 h-5 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Missed Opportunities</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-semibold text-zinc-900 mb-2">Missed Opportunities</h3>
+              <p className="text-zinc-500 text-sm leading-relaxed">
                 You watch others take the chances you were too afraid to take. Promotions, relationships, adventures — all passing you by.
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <div className="card-elevated p-8 rounded-2xl">
+              <div className="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center mb-5">
+                <svg className="w-5 h-5 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Constant Self-Doubt</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-semibold text-zinc-900 mb-2">Constant Self-Doubt</h3>
+              <p className="text-zinc-500 text-sm leading-relaxed">
                 That voice in your head never stops. &ldquo;You&apos;re not good enough.&rdquo; &ldquo;Who do you think you are?&rdquo; It&apos;s exhausting.
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-              <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <div className="card-elevated p-8 rounded-2xl">
+              <div className="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center mb-5">
+                <svg className="w-5 h-5 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Playing It Safe</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-semibold text-zinc-900 mb-2">Playing It Safe</h3>
+              <p className="text-zinc-500 text-sm leading-relaxed">
                 You&apos;ve built a comfortable cage. Safe, but suffocating. Deep down, you know you&apos;re capable of so much more.
               </p>
             </div>
@@ -157,62 +186,65 @@ export default function Home() {
       </section>
 
       {/* Solution Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+      <section className="section-padding bg-zinc-50">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="badge mb-6 mx-auto">
+              <span className="w-1.5 h-1.5 bg-zinc-900 rounded-full"></span>
               The Solution
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Introducing <span className="gradient-text">The Comfort Effect</span>
+            <h2 className="heading-lg text-zinc-900 mb-4">
+              Introducing The Comfort Effect
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="body-lg max-w-xl mx-auto">
               A science-backed system that rewires how you respond to fear — turning your biggest obstacle into your greatest advantage.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                  <span className="text-purple-600 font-bold">1</span>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <div className="flex gap-5">
+                <div className="flex-shrink-0 w-10 h-10 bg-zinc-900 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                  1
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Identify Your Fear Patterns</h3>
-                  <p className="text-gray-600">Discover the hidden triggers that have been holding you back — most people have no idea these exist.</p>
+                  <h3 className="text-lg font-semibold text-zinc-900 mb-2">Identify Your Fear Patterns</h3>
+                  <p className="text-zinc-500 text-sm leading-relaxed">Discover the hidden triggers that have been holding you back — most people have no idea these exist.</p>
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                  <span className="text-purple-600 font-bold">2</span>
+              <div className="flex gap-5">
+                <div className="flex-shrink-0 w-10 h-10 bg-zinc-900 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                  2
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Rewire Your Response</h3>
-                  <p className="text-gray-600">Use our proven techniques to transform fear signals into action signals. This is where the magic happens.</p>
+                  <h3 className="text-lg font-semibold text-zinc-900 mb-2">Rewire Your Response</h3>
+                  <p className="text-zinc-500 text-sm leading-relaxed">Use our proven techniques to transform fear signals into action signals. This is where the magic happens.</p>
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                  <span className="text-purple-600 font-bold">3</span>
+              <div className="flex gap-5">
+                <div className="flex-shrink-0 w-10 h-10 bg-zinc-900 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                  3
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Build Unstoppable Momentum</h3>
-                  <p className="text-gray-600">Stack small wins daily until confidence becomes your default state. In 21 days, you won&apos;t recognize yourself.</p>
+                  <h3 className="text-lg font-semibold text-zinc-900 mb-2">Build Unstoppable Momentum</h3>
+                  <p className="text-zinc-500 text-sm leading-relaxed">Stack small wins daily until confidence becomes your default state. In 21 days, you won&apos;t recognize yourself.</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-3xl">
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🎯</div>
-                  <h4 className="text-xl font-bold mb-2">First Results in 72 Hours</h4>
-                  <p className="text-gray-600 text-sm">
-                    Most members report feeling noticeably different within the first 3 days. By day 21, the transformation is undeniable.
-                  </p>
+            <div className="card-elevated p-8 rounded-2xl">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-zinc-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-8 h-8 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
                 </div>
+                <h4 className="text-xl font-semibold text-zinc-900 mb-3">First Results in 72 Hours</h4>
+                <p className="text-zinc-500 text-sm leading-relaxed">
+                  Most members report feeling noticeably different within the first 3 days. By day 21, the transformation is undeniable.
+                </p>
               </div>
             </div>
           </div>
@@ -220,186 +252,166 @@ export default function Home() {
       </section>
 
       {/* Product Bundle Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white" id="get-started">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Everything You Need to Transform
+      <section className="section-padding" id="get-started">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="heading-lg text-zinc-900 mb-4">
+              Everything you need to transform
             </h2>
-            <p className="text-xl text-gray-600">
-              Get the complete Comfort Effect system — a $532 value — for just $17 today.
+            <p className="body-lg max-w-xl mx-auto">
+              Get the complete system — a $532 value — for just $17 today.
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-6 mb-12">
-              {/* Product 1 */}
-              <div className="product-card bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-purple-200 transition-colors">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="text-3xl">📘</div>
-                  <span className="text-sm text-gray-400 line-through">$97</span>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+            {[
+              { icon: "📘", title: "Complete Comfort Effect Guide", desc: "The core 7-strategy system for building authentic confidence.", price: "$97" },
+              { icon: "📅", title: "21-Day Challenge Workbook", desc: "Daily exercises and prompts that make transformation inevitable.", price: "$67" },
+              { icon: "🎧", title: "Audio Confidence Course", desc: "Listen anywhere — in the car, at the gym, or while you work.", price: "$127" },
+              { icon: "💬", title: "Conversation Templates", desc: "Word-for-word scripts for high-stakes situations.", price: "$47" },
+              { icon: "📋", title: "30-Day Transformation Planner", desc: "Your roadmap to lasting change with built-in accountability.", price: "$97" },
+              { icon: "⚡", title: "Quick Reference Cards", desc: "Instant confidence boosts when you need them most.", price: "$97" },
+            ].map((product, i) => (
+              <div key={i} className="product-card p-5 rounded-xl bg-white">
+                <div className="flex justify-between items-start mb-3">
+                  <span className="text-2xl">{product.icon}</span>
+                  <span className="text-xs text-zinc-400 line-through">{product.price}</span>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">The Complete Comfort Effect Guide</h3>
-                <p className="text-gray-600 text-sm">The core 7-strategy system for building authentic confidence and connection.</p>
+                <h3 className="text-sm font-semibold text-zinc-900 mb-1">{product.title}</h3>
+                <p className="text-xs text-zinc-500 leading-relaxed">{product.desc}</p>
               </div>
+            ))}
+          </div>
 
-              {/* Product 2 */}
-              <div className="product-card bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-purple-200 transition-colors">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="text-3xl">📅</div>
-                  <span className="text-sm text-gray-400 line-through">$67</span>
-                </div>
-                <h3 className="text-lg font-semibold mb-2">21-Day Challenge Workbook</h3>
-                <p className="text-gray-600 text-sm">Daily exercises and prompts that make transformation inevitable.</p>
-              </div>
-
-              {/* Product 3 */}
-              <div className="product-card bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-purple-200 transition-colors">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="text-3xl">🎧</div>
-                  <span className="text-sm text-gray-400 line-through">$127</span>
-                </div>
-                <h3 className="text-lg font-semibold mb-2">Audio Confidence Course</h3>
-                <p className="text-gray-600 text-sm">Listen anywhere — in the car, at the gym, or while you work.</p>
-              </div>
-
-              {/* Product 4 */}
-              <div className="product-card bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-purple-200 transition-colors">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="text-3xl">💬</div>
-                  <span className="text-sm text-gray-400 line-through">$47</span>
-                </div>
-                <h3 className="text-lg font-semibold mb-2">Conversation Templates</h3>
-                <p className="text-gray-600 text-sm">Word-for-word scripts for high-stakes situations.</p>
-              </div>
-
-              {/* Product 5 */}
-              <div className="product-card bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-purple-200 transition-colors">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="text-3xl">📋</div>
-                  <span className="text-sm text-gray-400 line-through">$97</span>
-                </div>
-                <h3 className="text-lg font-semibold mb-2">30-Day Transformation Planner</h3>
-                <p className="text-gray-600 text-sm">Your roadmap to lasting change with built-in accountability.</p>
-              </div>
-
-              {/* Product 6 */}
-              <div className="product-card bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-purple-200 transition-colors">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="text-3xl">⚡</div>
-                  <span className="text-sm text-gray-400 line-through">$97</span>
-                </div>
-                <h3 className="text-lg font-semibold mb-2">Quick Reference Cards</h3>
-                <p className="text-gray-600 text-sm">Instant confidence boosts when you need them most.</p>
-              </div>
+          {/* Pricing CTA */}
+          <div className="card-elevated rounded-3xl p-8 md:p-12 text-center max-w-2xl mx-auto">
+            <div className="mb-8">
+              <span className="text-sm text-zinc-400 line-through">$532 Value</span>
+              <div className="text-5xl md:text-6xl font-semibold text-zinc-900 mb-2">$17</div>
+              <p className="text-zinc-500 text-sm">One-time payment. Lifetime access.</p>
             </div>
 
-            {/* Pricing CTA */}
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 md:p-12 text-center text-white">
-              <div className="mb-6">
-                <span className="text-white/70 text-lg line-through">$532 Value</span>
-                <div className="text-5xl md:text-6xl font-bold">$17</div>
-                <p className="text-white/80 mt-2">One-time payment. Lifetime access.</p>
-              </div>
+            <button className="btn-primary w-full sm:w-auto px-10 py-4 rounded-full text-base font-medium mb-6">
+              Get Instant Access Now →
+            </button>
 
-              <button className="cta-button bg-white text-purple-600 px-10 py-4 rounded-full text-lg font-bold hover:bg-gray-100 transition-colors mb-6">
-                Get Instant Access Now →
-              </button>
-
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70">
-                <span className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                  </svg>
-                  Secure Checkout
-                </span>
-                <span className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  30-Day Guarantee
-                </span>
-                <span className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-                  </svg>
-                  Instant Access
-                </span>
-              </div>
+            <div className="flex flex-wrap justify-center gap-6 text-xs text-zinc-400">
+              <span className="flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                </svg>
+                Secure Checkout
+              </span>
+              <span className="flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                30-Day Guarantee
+              </span>
+              <span className="flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                </svg>
+                Instant Access
+              </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Real People. Real Transformations.
+      {/* Video Testimonials */}
+      <section className="section-padding bg-zinc-50">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="heading-lg text-zinc-900 mb-4">
+              Real people. Real results.
             </h2>
-            <p className="text-xl text-gray-600">
-              Join thousands who&apos;ve already broken free.
+            <p className="body-lg max-w-xl mx-auto">
+              Hear from people who&apos;ve transformed their lives.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="testimonial-card bg-gray-50 p-8 rounded-2xl">
-              <div className="flex gap-1 text-yellow-400 mb-4">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="video-container aspect-video">
+              <video
+                controls
+                className="w-full h-full object-cover"
+              >
+                <source src="/videos/testimonial_1.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div className="video-container aspect-video">
+              <video
+                controls
+                className="w-full h-full object-cover"
+              >
+                <source src="/videos/testimonial_2.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Written Testimonials */}
+      <section className="section-padding">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="testimonial-card card-elevated p-6 rounded-2xl">
+              <div className="flex gap-0.5 text-zinc-300 mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <svg key={i} className="w-4 h-4 fill-zinc-900" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 ))}
               </div>
-              <p className="text-gray-700 mb-6">
-                &ldquo;I went from dreading meetings to leading them. My boss asked what changed — I just smiled. This system is the real deal.&rdquo;
+              <p className="text-zinc-600 text-sm leading-relaxed mb-5">
+                &ldquo;I went from dreading meetings to leading them. My boss asked what changed — I just smiled.&rdquo;
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center text-purple-600 font-bold">S</div>
+                <div className="w-9 h-9 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-600 text-sm font-medium">S</div>
                 <div>
-                  <div className="font-semibold">Sarah M.</div>
-                  <div className="text-sm text-gray-500">Marketing Director</div>
+                  <div className="text-sm font-medium text-zinc-900">Sarah M.</div>
+                  <div className="text-xs text-zinc-400">Marketing Director</div>
                 </div>
               </div>
             </div>
 
-            <div className="testimonial-card bg-gray-50 p-8 rounded-2xl">
-              <div className="flex gap-1 text-yellow-400 mb-4">
+            <div className="testimonial-card card-elevated p-6 rounded-2xl">
+              <div className="flex gap-0.5 text-zinc-300 mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <svg key={i} className="w-4 h-4 fill-zinc-900" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 ))}
               </div>
-              <p className="text-gray-700 mb-6">
-                &ldquo;Day 3 and I already asked for a raise. Got it. The techniques here cut through years of self-sabotage in days.&rdquo;
+              <p className="text-zinc-600 text-sm leading-relaxed mb-5">
+                &ldquo;Day 3 and I already asked for a raise. Got it. The techniques here cut through years of self-sabotage.&rdquo;
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center text-blue-600 font-bold">M</div>
+                <div className="w-9 h-9 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-600 text-sm font-medium">M</div>
                 <div>
-                  <div className="font-semibold">Mike C.</div>
-                  <div className="text-sm text-gray-500">Software Engineer</div>
+                  <div className="text-sm font-medium text-zinc-900">Mike C.</div>
+                  <div className="text-xs text-zinc-400">Software Engineer</div>
                 </div>
               </div>
             </div>
 
-            <div className="testimonial-card bg-gray-50 p-8 rounded-2xl">
-              <div className="flex gap-1 text-yellow-400 mb-4">
+            <div className="testimonial-card card-elevated p-6 rounded-2xl">
+              <div className="flex gap-0.5 text-zinc-300 mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <svg key={i} className="w-4 h-4 fill-zinc-900" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 ))}
               </div>
-              <p className="text-gray-700 mb-6">
-                &ldquo;I finally launched my business after 3 years of &apos;planning.&apos; The Comfort Effect showed me my fear was the plan. Game changer.&rdquo;
+              <p className="text-zinc-600 text-sm leading-relaxed mb-5">
+                &ldquo;Finally launched my business after 3 years of &apos;planning.&apos; The Comfort Effect showed me my fear was the plan.&rdquo;
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-pink-200 rounded-full flex items-center justify-center text-pink-600 font-bold">J</div>
+                <div className="w-9 h-9 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-600 text-sm font-medium">J</div>
                 <div>
-                  <div className="font-semibold">Jessica R.</div>
-                  <div className="text-sm text-gray-500">Entrepreneur</div>
+                  <div className="text-sm font-medium text-zinc-900">Jessica R.</div>
+                  <div className="text-xs text-zinc-400">Entrepreneur</div>
                 </div>
               </div>
             </div>
@@ -408,90 +420,84 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Questions? We&apos;ve Got Answers.
-              </h2>
-            </div>
+      <section className="section-padding bg-zinc-50">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="heading-lg text-zinc-900 mb-4">
+              Questions & Answers
+            </h2>
+          </div>
 
-            <div className="space-y-4">
-              <div className="bg-white p-6 rounded-2xl">
-                <h3 className="text-lg font-semibold mb-2">How is this different from other self-help programs?</h3>
-                <p className="text-gray-600">
-                  Most programs focus on positive thinking or motivation — which wears off. The Comfort Effect rewires your actual response to fear using neuroscience-backed techniques. You&apos;re not fighting fear anymore; you&apos;re transforming it into fuel.
-                </p>
+          <div className="space-y-4">
+            {[
+              {
+                q: "How is this different from other self-help programs?",
+                a: "Most programs focus on positive thinking or motivation — which wears off. The Comfort Effect rewires your actual response to fear using neuroscience-backed techniques. You're not fighting fear anymore; you're transforming it into fuel."
+              },
+              {
+                q: "What if it doesn't work for me?",
+                a: "Try it risk-free for 30 days. If you don't feel a noticeable shift in how you handle fear and self-doubt, email us and we'll refund every penny. No questions, no hassle."
+              },
+              {
+                q: "How quickly will I see results?",
+                a: "Most people report feeling different within 72 hours of starting. The full 21-day program creates lasting neural pathways that make confidence your new default."
+              },
+              {
+                q: "Is this just for business/career situations?",
+                a: "No — the techniques work in any situation where fear holds you back. Relationships, social situations, public speaking, creative projects, health goals — anywhere you need to push past your comfort zone."
+              }
+            ].map((faq, i) => (
+              <div key={i} className="card-elevated p-6 rounded-xl">
+                <h3 className="text-base font-semibold text-zinc-900 mb-2">{faq.q}</h3>
+                <p className="text-sm text-zinc-500 leading-relaxed">{faq.a}</p>
               </div>
-
-              <div className="bg-white p-6 rounded-2xl">
-                <h3 className="text-lg font-semibold mb-2">What if it doesn&apos;t work for me?</h3>
-                <p className="text-gray-600">
-                  Try it risk-free for 30 days. If you don&apos;t feel a noticeable shift in how you handle fear and self-doubt, email us and we&apos;ll refund every penny. No questions, no hassle.
-                </p>
-              </div>
-
-              <div className="bg-white p-6 rounded-2xl">
-                <h3 className="text-lg font-semibold mb-2">How quickly will I see results?</h3>
-                <p className="text-gray-600">
-                  Most people report feeling different within 72 hours of starting. The full 21-day program creates lasting neural pathways that make confidence your new default.
-                </p>
-              </div>
-
-              <div className="bg-white p-6 rounded-2xl">
-                <h3 className="text-lg font-semibold mb-2">Is this just for business/career situations?</h3>
-                <p className="text-gray-600">
-                  No — the techniques work in any situation where fear holds you back. Relationships, social situations, public speaking, creative projects, health goals — anywhere you need to push past your comfort zone.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 hero-gradient">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center text-white">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Your Future Self Is Waiting
-            </h2>
-            <p className="text-xl text-white/80 mb-8 max-w-xl mx-auto">
-              21 days from now, you could be living the life you&apos;ve been too afraid to pursue. Or you could still be waiting. The choice is yours.
-            </p>
+      <section className="section-padding">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="heading-lg text-zinc-900 mb-4">
+            Your future self is waiting
+          </h2>
+          <p className="body-lg max-w-xl mx-auto mb-10">
+            21 days from now, you could be living the life you&apos;ve been too afraid to pursue. Or you could still be waiting.
+          </p>
 
-            <a
-              href="#get-started"
-              className="cta-button inline-block bg-white text-purple-600 px-10 py-4 rounded-full text-lg font-bold hover:bg-gray-100 transition-colors mb-6"
-            >
-              Start Your Transformation - $17
-            </a>
+          <a
+            href="#get-started"
+            className="btn-primary inline-block px-10 py-4 rounded-full text-base font-medium mb-6"
+          >
+            Start Your Transformation — $17
+          </a>
 
-            <p className="text-white/60 text-sm">
-              30-day money-back guarantee. Instant access. No risk.
-            </p>
-          </div>
+          <p className="text-sm text-zinc-400">
+            30-day money-back guarantee. Instant access. No risk.
+          </p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-slate-900 text-white">
-        <div className="container mx-auto px-6">
+      <footer className="py-12 border-t border-zinc-100">
+        <div className="max-w-5xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
-              <div className="text-xl font-bold gradient-text mb-2">The Comfort Effect</div>
-              <p className="text-gray-400 text-sm">By Eula Properties LLC</p>
+              <div className="text-base font-semibold text-zinc-900 mb-1">The Comfort Effect</div>
+              <p className="text-xs text-zinc-400">By Eula Properties LLC</p>
             </div>
 
-            <div className="flex gap-6 text-sm text-gray-400">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-              <a href="mailto:info@eulaproperties.com" className="hover:text-white transition-colors">Contact</a>
+            <div className="flex gap-6 text-xs text-zinc-400">
+              <a href="#" className="hover:text-zinc-900 transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-zinc-900 transition-colors">Terms of Service</a>
+              <a href="mailto:info@eulaproperties.com" className="hover:text-zinc-900 transition-colors">Contact</a>
             </div>
           </div>
 
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+          <div className="divider my-8"></div>
+
+          <div className="text-center text-xs text-zinc-400">
             © 2025 Eula Properties LLC. All rights reserved.
           </div>
         </div>
