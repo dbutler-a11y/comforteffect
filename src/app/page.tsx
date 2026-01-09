@@ -1,9 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import AudioPlayer from "@/components/AudioPlayer";
+import { EmailCaptureForm } from "@/components/EmailCaptureForm";
+import CoachingModal from "@/components/CoachingModal";
+import CountdownTimer from "@/components/CountdownTimer";
+import PayPalProvider from "@/components/PayPalProvider";
+import PayPalButton from "@/components/PayPalButton";
 
 export default function Home() {
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [isCoachingModalOpen, setIsCoachingModalOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-white">
@@ -61,7 +68,7 @@ export default function Home() {
           </div>
 
           {/* Trust Indicators */}
-          <div className="flex flex-wrap justify-center gap-8 text-sm text-zinc-500">
+          <div className="flex flex-wrap justify-center gap-8 text-sm text-zinc-500 mb-16">
             <div className="flex items-center gap-2">
               <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -79,6 +86,30 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Results in 72 hours
+            </div>
+          </div>
+
+          {/* Free Lead Magnet - Email Capture */}
+          <div className="max-w-md mx-auto">
+            <div className="card-elevated rounded-2xl p-6 md:p-8">
+              <div className="text-center mb-6">
+                <div className="badge mb-4 mx-auto">
+                  <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+                  Free Download
+                </div>
+                <h3 className="text-lg font-semibold text-zinc-900 mb-2">
+                  Get the Comfort Zone Breakthrough Blueprint
+                </h3>
+                <p className="text-sm text-zinc-500">
+                  The 5-step framework to overcome fear and take action today. Delivered instantly to your inbox.
+                </p>
+              </div>
+              <EmailCaptureForm
+                source="hero-lead-magnet"
+                buttonText="Get Your Free Blueprint"
+                successMessage="Check your inbox! Your Comfort Zone Breakthrough Blueprint is on the way."
+                variant="compact"
+              />
             </div>
           </div>
         </div>
@@ -291,9 +322,12 @@ export default function Home() {
               <p className="text-zinc-500 text-sm">One-time payment. Lifetime access.</p>
             </div>
 
-            <button className="btn-primary w-full sm:w-auto px-10 py-4 rounded-full text-base font-medium mb-6">
-              Get Instant Access Now →
-            </button>
+            {/* PayPal Payment Button */}
+            <div className="mb-6">
+              <PayPalProvider>
+                <PayPalButton amount="17.00" productName="Comfort Effect Toolkit" />
+              </PayPalProvider>
+            </div>
 
             <div className="flex flex-wrap justify-center gap-6 text-xs text-zinc-400">
               <span className="flex items-center gap-1.5">
@@ -319,8 +353,52 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Audio Course Section */}
+      <section className="section-padding bg-zinc-50" id="audio-course">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <div className="badge mb-6 mx-auto">
+              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+              Bonus Included
+            </div>
+            <h2 className="heading-lg text-zinc-900 mb-4">
+              90-Minute Audio Companion
+            </h2>
+            <p className="body-lg max-w-xl mx-auto">
+              Listen anywhere, anytime. Perfect for your commute, workout, or focused learning sessions.
+            </p>
+          </div>
+
+          <AudioPlayer
+            src="/audio/confidence-course.mp3"
+            title="The Comfort Effect Audio Course"
+          />
+
+          <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-zinc-500">
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              90 minutes of content
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download for offline
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+              </svg>
+              Professional audio quality
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Video Testimonials */}
-      <section className="section-padding bg-zinc-50">
+      <section className="section-padding">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="heading-lg text-zinc-900 mb-4">
@@ -419,6 +497,85 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Coaching Upsell Section */}
+      <section className="section-padding bg-zinc-900" id="coaching">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center">
+            {/* Premium Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full mb-8">
+              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+              <span className="text-sm text-zinc-300 font-medium">Limited Spots Available</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4 tracking-tight">
+              Ready for Accelerated Results?
+            </h2>
+
+            <p className="text-lg text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+              For those who want faster, deeper transformation, our 1:1 Coaching program
+              delivers personalized guidance and accountability that multiplies your results.
+            </p>
+
+            {/* Program Highlights */}
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-white font-semibold mb-2">Personal Attention</h3>
+                <p className="text-zinc-400 text-sm">Weekly 1-on-1 sessions tailored to your specific challenges and goals.</p>
+              </div>
+
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-white font-semibold mb-2">4-Week Sprint</h3>
+                <p className="text-zinc-400 text-sm">Intensive program designed to compress months of growth into weeks.</p>
+              </div>
+
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-white font-semibold mb-2">Proven Results</h3>
+                <p className="text-zinc-400 text-sm">95% of coaching clients report breakthrough results within the first 2 weeks.</p>
+              </div>
+            </div>
+
+            {/* Countdown Timer */}
+            <div className="mb-8">
+              <CountdownTimer
+                durationMinutes={30}
+                label="Special application pricing expires in:"
+                storageKey="coaching_offer_timer"
+              />
+            </div>
+
+            {/* CTA Button */}
+            <button
+              onClick={() => setIsCoachingModalOpen(true)}
+              className="group inline-flex items-center gap-3 bg-white text-zinc-900 px-8 py-4 rounded-full font-medium text-base hover:bg-zinc-100 transition-all hover:scale-105 shadow-lg shadow-black/20"
+            >
+              Apply Now
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+
+            <p className="text-sm text-zinc-500 mt-4">
+              Only 5 spots available this month
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="section-padding bg-zinc-50">
         <div className="max-w-3xl mx-auto px-6">
@@ -502,6 +659,12 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Coaching Modal */}
+      <CoachingModal
+        isOpen={isCoachingModalOpen}
+        onClose={() => setIsCoachingModalOpen(false)}
+      />
     </main>
   );
 }
