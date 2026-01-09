@@ -2,12 +2,17 @@
 
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 interface PayPalButtonProps {
   amount?: string;
   productName?: string;
 }
+
+type PaymentError = {
+  message: string;
+  type: "create" | "capture" | "paypal";
+} | null;
 
 // Loading spinner component
 function LoadingSpinner() {
@@ -29,6 +34,9 @@ export default function PayPalButton({
   const router = useRouter();
   const [{ isPending, isRejected }] = usePayPalScriptReducer();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState<PaymentError>(null);
+
+  const clearError = useCallback(() => setError(null), []);
 
   if (isPending) {
     return <LoadingSpinner />;
@@ -50,6 +58,27 @@ export default function PayPalButton({
 
   return (
     <div className="w-full max-w-md mx-auto">
+      {/* Error Message */}
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+          <div className="flex items-start gap-2">
+            <svg className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div className="flex-1">
+              <p className="text-sm text-red-700">{error.message}</p>
+              <button
+                onClick={clearError}
+                className="text-xs text-red-600 underline hover:no-underline mt-1"
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Processing State */}
       {isProcessing && (
         <div className="mb-4 p-3 bg-zinc-50 rounded-lg flex items-center justify-center gap-2">
           <div className="w-4 h-4 border-2 border-zinc-900 border-t-transparent rounded-full animate-spin"></div>
@@ -88,10 +117,13 @@ export default function PayPalButton({
             }
 
             return orderData.orderId;
-          } catch (error) {
-            console.error("Error creating order:", error);
-            alert("Failed to create order. Please try again.");
-            throw error;
+          } catch (err) {
+            console.error("Error creating order:", err);
+            setError({
+              message: "Failed to create order. Please try again.",
+              type: "create",
+            });
+            throw err;
           }
         }}
         onApprove={async (data, _actions) => {
@@ -116,16 +148,22 @@ export default function PayPalButton({
 
             // Success - redirect to thank you page
             router.push("/thank-you");
-          } catch (error) {
+          } catch (err) {
             setIsProcessing(false);
-            console.error("Error capturing order:", error);
-            alert("Payment failed. Please try again or contact support.");
+            console.error("Error capturing order:", err);
+            setError({
+              message: "Payment failed. Please try again or contact support.",
+              type: "capture",
+            });
           }
         }}
         onError={(err) => {
           setIsProcessing(false);
           console.error("PayPal error:", err);
-          alert("An error occurred with PayPal. Please try again.");
+          setError({
+            message: "An error occurred with PayPal. Please try again.",
+            type: "paypal",
+          });
         }}
         onCancel={() => {
           setIsProcessing(false);

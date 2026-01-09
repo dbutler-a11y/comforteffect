@@ -81,7 +81,9 @@ export default function CountdownTimer({
     // Initial calculation - schedule to avoid synchronous setState in effect
     const initial = calculateTimeLeft();
     // Use queueMicrotask to defer state updates and avoid cascading renders
+    // Check mountedRef to prevent state updates on unmounted component
     queueMicrotask(() => {
+      if (!mountedRef.current) return;
       if (initial) {
         setTimeLeft(initial);
       } else {
@@ -92,6 +94,7 @@ export default function CountdownTimer({
 
     // Update every second
     const interval = setInterval(() => {
+      if (!mountedRef.current) return;
       const remaining = calculateTimeLeft();
       if (remaining) {
         setTimeLeft(remaining);
@@ -102,7 +105,10 @@ export default function CountdownTimer({
       }
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      mountedRef.current = false;
+      clearInterval(interval);
+    };
   }, [durationMinutes, storageKey]);
 
   // Reset timer function (can be exposed via ref if needed)

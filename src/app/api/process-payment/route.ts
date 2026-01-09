@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// PayPal API configuration
-const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "BAAb9kNx-9H5VD5hynZQZWwUUPhIGRWKwoStWifX0l55X56ranEwlxxi7lLh5p5yRyF2b-uqEa0fDbQYpI";
-const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET || "";
+// PayPal API configuration - credentials must be set in environment variables
+const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET;
 const PAYPAL_API_URL = process.env.PAYPAL_MODE === "live"
   ? "https://api-m.paypal.com"
   : "https://api-m.sandbox.paypal.com";
+
+// Validate configuration at startup
+const isPayPalConfigured = Boolean(PAYPAL_CLIENT_ID && PAYPAL_CLIENT_SECRET);
 
 // Get PayPal access token
 async function getAccessToken(): Promise<string> {
@@ -90,6 +93,15 @@ async function captureOrder(orderId: string) {
 }
 
 export async function POST(request: NextRequest) {
+  // Check if PayPal is configured before processing
+  if (!isPayPalConfigured) {
+    console.error("PayPal credentials not configured. Set NEXT_PUBLIC_PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET.");
+    return NextResponse.json(
+      { error: "Payment processing is not available. Please contact support." },
+      { status: 503 }
+    );
+  }
+
   try {
     const body = await request.json();
     const { action, amount, productName, orderId } = body;

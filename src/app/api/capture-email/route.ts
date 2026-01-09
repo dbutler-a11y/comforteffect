@@ -107,13 +107,13 @@ export async function POST(request: NextRequest): Promise<NextResponse<CaptureEm
     // For now, we'll log the submission and return success
     // This will be replaced with actual database storage later
 
+    // Log capture event without PII for analytics (redact sensitive data in production)
     console.log("[Email Capture]", {
-      name: trimmedName,
-      email: trimmedEmail,
       ...logSourceType(trimmedSource),
       timestamp: new Date().toISOString(),
-      ip: request.headers.get("x-forwarded-for") || "unknown",
-      userAgent: request.headers.get("user-agent") || "unknown",
+      // Redact PII - only log hashed/partial data for debugging
+      emailDomain: trimmedEmail.split("@")[1] || "unknown",
+      hasName: Boolean(trimmedName),
     });
 
     // Simulate a small delay to prevent spam detection bypass

@@ -111,11 +111,11 @@ export async function POST(request: NextRequest) {
     // 3. Send a confirmation email to the applicant
     // 4. Add to a CRM or mailing list
 
-    // For now, we'll log the application (in production, replace with actual storage)
-    console.log("New coaching application received:", {
-      ...sanitizedData,
+    // Log application event without full PII for analytics
+    console.log("[Coaching Application]", {
       timestamp: new Date().toISOString(),
-      ip: request.headers.get("x-forwarded-for") || "unknown",
+      emailDomain: sanitizedData!.email.split("@")[1] || "unknown",
+      goalsLength: sanitizedData!.goals.length,
     });
 
     // Simulate a small delay for realistic UX

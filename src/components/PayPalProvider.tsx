@@ -7,17 +7,24 @@ interface PayPalProviderProps {
   children: ReactNode;
 }
 
-// PayPal Client ID - uses sandbox mode by default
-const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "BAAb9kNx-9H5VD5hynZQZWwUUPhIGRWKwoStWifX0l55X56ranEwlxxi7lLh5p5yRyF2b-uqEa0fDbQYpI";
+// PayPal Client ID - must be set in environment variables
+const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+
+if (!PAYPAL_CLIENT_ID) {
+  console.error("NEXT_PUBLIC_PAYPAL_CLIENT_ID is not set. PayPal payments will not work.");
+}
 
 export default function PayPalProvider({ children }: PayPalProviderProps) {
+  // If no client ID, render children without PayPal (will show error in PayPalButton)
+  if (!PAYPAL_CLIENT_ID) {
+    return <>{children}</>;
+  }
+
   const initialOptions = {
     clientId: PAYPAL_CLIENT_ID,
     currency: "USD",
     intent: "capture",
     components: "buttons",
-    // Enable sandbox mode for testing
-    // Remove or set to false for production
     "enable-funding": "paypal",
     "disable-funding": "credit,card",
   };

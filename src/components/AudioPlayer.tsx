@@ -15,6 +15,7 @@ export default function AudioPlayer({
 }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const lastTimeUpdateRef = useRef<number>(0);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -48,10 +49,15 @@ export default function AudioPlayer({
     }
   }, []);
 
-  // Handle time update
+  // Handle time update with throttling (updates max every 100ms to reduce re-renders)
   const handleTimeUpdate = useCallback(() => {
     const audio = audioRef.current;
-    if (audio) {
+    if (!audio) return;
+
+    const now = Date.now();
+    // Throttle to max 10 updates per second
+    if (now - lastTimeUpdateRef.current >= 100) {
+      lastTimeUpdateRef.current = now;
       setCurrentTime(audio.currentTime);
     }
   }, []);
