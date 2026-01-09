@@ -23,6 +23,7 @@ export default function AudioPlayer({
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [autoPlayBlocked, setAutoPlayBlocked] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
 
@@ -70,6 +71,13 @@ export default function AudioPlayer({
       audioRef.current.currentTime = 0;
     }
   }, []);
+
+  // Handle audio load error
+  const handleError = useCallback(() => {
+    setIsLoading(false);
+    setLoadError(true);
+    console.error("Failed to load audio file:", src);
+  }, [src]);
 
   // Toggle play/pause
   const togglePlay = useCallback(async () => {
@@ -223,6 +231,7 @@ export default function AudioPlayer({
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleEnded}
         onCanPlay={() => setIsLoading(false)}
+        onError={handleError}
         preload="metadata"
       />
 
@@ -259,14 +268,31 @@ export default function AudioPlayer({
         </div>
       )}
 
+      {/* Load error message */}
+      {loadError && (
+        <div className="mb-4 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+          <div className="flex items-start gap-3">
+            <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <div>
+              <p className="text-sm font-medium text-amber-800">Audio file not available</p>
+              <p className="text-xs text-amber-600 mt-1">
+                The audio course will be available after your purchase is complete.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Controls */}
       <div className="flex items-center gap-4 mb-4">
         {/* Skip Back Button */}
         <button
           onClick={() => skip(-10)}
-          className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-zinc-600 transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 rounded-full"
+          className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-zinc-600 transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 rounded-full disabled:opacity-30 disabled:cursor-not-allowed"
           aria-label="Skip back 10 seconds"
-          disabled={isLoading}
+          disabled={isLoading || loadError}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z" />
@@ -276,7 +302,7 @@ export default function AudioPlayer({
         {/* Play/Pause Button */}
         <button
           onClick={togglePlay}
-          disabled={isLoading}
+          disabled={isLoading || loadError}
           className="w-14 h-14 bg-zinc-900 hover:bg-zinc-800 text-white rounded-full flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           aria-label={isPlaying ? "Pause" : "Play"}
         >
@@ -299,9 +325,9 @@ export default function AudioPlayer({
         {/* Skip Forward Button */}
         <button
           onClick={() => skip(10)}
-          className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-zinc-600 transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 rounded-full"
+          className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-zinc-600 transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 rounded-full disabled:opacity-30 disabled:cursor-not-allowed"
           aria-label="Skip forward 10 seconds"
-          disabled={isLoading}
+          disabled={isLoading || loadError}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z" />

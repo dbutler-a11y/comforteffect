@@ -153,8 +153,8 @@ export default function Home() {
           <div className="video-container aspect-video">
             <video
               controls
-              poster="/videos/poster.jpg"
               className="w-full h-full object-cover"
+              preload="metadata"
             >
               <source src="/videos/testimonial_2.mp4" type="video/mp4" />
               Your browser does not support the video tag.
