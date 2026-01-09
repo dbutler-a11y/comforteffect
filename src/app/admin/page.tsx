@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 interface DashboardMetrics {
@@ -39,17 +39,9 @@ interface Purchase {
   purchasedAt: string;
 }
 
-interface Subscriber {
-  id: string;
-  name: string;
-  email: string;
-  subscribedAt: string;
-  welcomeEmailSent: boolean;
-  isActive: boolean;
-}
-
 export default function AdminDashboard() {
-  const [metrics, setMetrics] = useState<DashboardMetrics>({
+  // Static placeholder data - will be replaced with API calls when database is connected
+  const metrics: DashboardMetrics = {
     totalSubscribers: 41,
     weeklySubscribers: 1,
     totalSales: 5,
@@ -58,11 +50,11 @@ export default function AdminDashboard() {
     weeklyRevenue: 0,
     conversionRate: 12.2,
     healthScore: 32.9,
-  });
+  };
 
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([
+  const teamMembers: TeamMember[] = [
     { id: "1", name: "Ads Manager", role: "Marketing", monthlyPay: 400, healthScore: 0 },
-  ]);
+  ];
 
   const [pages, setPages] = useState<SitePage[]>([
     { id: "1", path: "/", name: "Home", status: "working" },
@@ -74,15 +66,14 @@ export default function AdminDashboard() {
     { id: "7", path: "/manage-emails", name: "Email Manager", status: "untested" },
   ]);
 
-  const [purchases, setPurchases] = useState<Purchase[]>([
+  const purchases: Purchase[] = [
     { id: "1", name: "John D.", email: "john@example.com", product: "Comfort Effect Bundle", amount: 17, status: "completed", purchasedAt: "2025-01-05" },
     { id: "2", name: "Sarah M.", email: "sarah@example.com", product: "Comfort Effect Bundle", amount: 17, status: "completed", purchasedAt: "2025-01-04" },
     { id: "3", name: "Mike C.", email: "mike@example.com", product: "Comfort Effect Bundle", amount: 17, status: "completed", purchasedAt: "2025-01-03" },
     { id: "4", name: "Emily R.", email: "emily@example.com", product: "Comfort Effect Bundle", amount: 17, status: "completed", purchasedAt: "2025-01-02" },
     { id: "5", name: "David K.", email: "david@example.com", product: "Comfort Effect Bundle", amount: 17, status: "completed", purchasedAt: "2025-01-01" },
-  ]);
+  ];
 
-  const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [testingLinks, setTestingLinks] = useState(false);
 
   const getHealthColor = (score: number) => {

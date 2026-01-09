@@ -67,7 +67,7 @@ export default function PayPalButton({
         }}
         disabled={isProcessing}
         forceReRender={[amount, productName]}
-        createOrder={async (data, actions) => {
+        createOrder={async (_data, _actions) => {
           try {
             const response = await fetch("/api/process-payment", {
               method: "POST",
@@ -94,7 +94,7 @@ export default function PayPalButton({
             throw error;
           }
         }}
-        onApprove={async (data, actions) => {
+        onApprove={async (data, _actions) => {
           setIsProcessing(true);
           try {
             const response = await fetch("/api/process-payment", {

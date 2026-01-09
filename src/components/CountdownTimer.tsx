@@ -78,14 +78,17 @@ export default function CountdownTimer({
       return { minutes, seconds, totalSeconds };
     };
 
-    // Initial calculation
+    // Initial calculation - schedule to avoid synchronous setState in effect
     const initial = calculateTimeLeft();
-    if (initial) {
-      setTimeLeft(initial);
-    } else {
-      setIsExpired(true);
-      onExpireRef.current?.();
-    }
+    // Use queueMicrotask to defer state updates and avoid cascading renders
+    queueMicrotask(() => {
+      if (initial) {
+        setTimeLeft(initial);
+      } else {
+        setIsExpired(true);
+        onExpireRef.current?.();
+      }
+    });
 
     // Update every second
     const interval = setInterval(() => {

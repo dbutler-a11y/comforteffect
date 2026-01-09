@@ -7,10 +7,17 @@ import { usePathname, useSearchParams } from "next/navigation";
 // Facebook Pixel IDs
 const PIXEL_IDS = ["715110788030883", "2792268817650753"] as const;
 
+// Facebook Pixel event type
+type FacebookPixelEvent = (
+  type: "track" | "trackCustom" | "init" | "pageview",
+  eventName?: string,
+  parameters?: Record<string, unknown>
+) => void;
+
 // Extend Window interface to include fbq
 declare global {
   interface Window {
-    fbq: facebook.Pixel.Event & {
+    fbq: FacebookPixelEvent & {
       callMethod?: (...args: unknown[]) => void;
       queue?: unknown[];
       loaded?: boolean;
@@ -18,17 +25,6 @@ declare global {
       push?: (...args: unknown[]) => void;
     };
     _fbq: typeof window.fbq;
-  }
-}
-
-// Facebook Pixel types
-declare namespace facebook {
-  namespace Pixel {
-    type Event = (
-      type: "track" | "trackCustom" | "init" | "pageview",
-      eventName?: string,
-      parameters?: Record<string, unknown>
-    ) => void;
   }
 }
 

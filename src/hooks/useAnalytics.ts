@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import {
   trackScrollDepth,
   trackSessionDuration,
@@ -40,14 +40,8 @@ export function useAnalytics(options: UseAnalyticsOptions = {}): void {
   } = options;
 
   // Use refs to persist state across renders without causing re-renders
-  const stateRef = useRef<AnalyticsState>({
-    sessionStartTime: Date.now(),
-    maxScrollDepth: 0,
-    trackedScrollMilestones: new Set<number>(),
-    isPageVisible: true,
-    totalVisibleTime: 0,
-    lastVisibleTime: Date.now(),
-  });
+  // Initialize with null to avoid calling Date.now() during render
+  const stateRef = useRef<AnalyticsState | null>(null);
 
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -89,6 +83,7 @@ export function useAnalytics(options: UseAnalyticsOptions = {}): void {
     scrollTimeoutRef.current = setTimeout(() => {
       const currentDepth = getScrollDepth();
       const state = stateRef.current;
+      if (!state) return;
 
       // Update max scroll depth
       if (currentDepth > state.maxScrollDepth) {
@@ -113,6 +108,7 @@ export function useAnalytics(options: UseAnalyticsOptions = {}): void {
    */
   const handleVisibilityChange = useCallback(() => {
     const state = stateRef.current;
+    if (!state) return;
     const now = Date.now();
 
     if (document.visibilityState === "hidden") {
@@ -133,6 +129,7 @@ export function useAnalytics(options: UseAnalyticsOptions = {}): void {
    */
   const getSessionDuration = useCallback((): number => {
     const state = stateRef.current;
+    if (!state) return 0;
     const now = Date.now();
 
     let totalTime = state.totalVisibleTime;
@@ -148,6 +145,7 @@ export function useAnalytics(options: UseAnalyticsOptions = {}): void {
    */
   const sendExitAnalytics = useCallback(() => {
     const state = stateRef.current;
+    if (!state) return;
     const sessionDuration = getSessionDuration();
 
     // Track session duration
@@ -250,7 +248,7 @@ export function useAnalytics(options: UseAnalyticsOptions = {}): void {
  * Hook to get current scroll depth (for UI purposes)
  */
 export function useScrollDepth(): number {
-  const scrollDepthRef = useRef(0);
+  const [scrollDepth, setScrollDepth] = useState(0);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -261,14 +259,13 @@ export function useScrollDepth(): number {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
       if (documentHeight <= windowHeight) {
-        scrollDepthRef.current = 100;
+        setScrollDepth(100);
         return;
       }
 
       const scrollableHeight = documentHeight - windowHeight;
-      scrollDepthRef.current = Math.min(
-        Math.round((scrollTop / scrollableHeight) * 100),
-        100
+      setScrollDepth(
+        Math.min(Math.round((scrollTop / scrollableHeight) * 100), 100)
       );
     };
 
@@ -280,7 +277,7 @@ export function useScrollDepth(): number {
     };
   }, []);
 
-  return scrollDepthRef.current;
+  return scrollDepth;
 }
 
 export default useAnalytics;

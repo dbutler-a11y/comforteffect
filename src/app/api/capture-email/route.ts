@@ -13,7 +13,20 @@ const VALID_SOURCES = [
   "landing-page",
 ] as const;
 
-type EmailSource = typeof VALID_SOURCES[number] | string;
+type EmailSource = (typeof VALID_SOURCES)[number] | string;
+
+// Helper to check if source is valid (used for validation)
+const isValidSource = (source: string): source is (typeof VALID_SOURCES)[number] => {
+  return VALID_SOURCES.includes(source as (typeof VALID_SOURCES)[number]);
+};
+
+// Log if source is a known source for analytics
+const logSourceType = (source: string) => {
+  if (isValidSource(source)) {
+    return { sourceType: "known", source };
+  }
+  return { sourceType: "custom", source };
+};
 
 interface CaptureEmailRequest {
   name: string;
@@ -97,7 +110,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<CaptureEm
     console.log("[Email Capture]", {
       name: trimmedName,
       email: trimmedEmail,
-      source: trimmedSource,
+      ...logSourceType(trimmedSource),
       timestamp: new Date().toISOString(),
       ip: request.headers.get("x-forwarded-for") || "unknown",
       userAgent: request.headers.get("user-agent") || "unknown",

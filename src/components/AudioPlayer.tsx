@@ -66,7 +66,7 @@ export default function AudioPlayer({
   }, []);
 
   // Toggle play/pause
-  const togglePlay = async () => {
+  const togglePlay = useCallback(async () => {
     const audio = audioRef.current;
     if (!audio) return;
 
@@ -87,7 +87,7 @@ export default function AudioPlayer({
       }
       console.error("Playback error:", error);
     }
-  };
+  }, [isPlaying]);
 
   // Handle progress bar click for seeking
   const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -146,7 +146,7 @@ export default function AudioPlayer({
   };
 
   // Toggle mute
-  const toggleMute = () => {
+  const toggleMute = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
@@ -157,7 +157,7 @@ export default function AudioPlayer({
       audio.volume = 0;
       setIsMuted(true);
     }
-  };
+  }, [isMuted, volume]);
 
   // Skip forward/backward
   const skip = (seconds: number) => {
@@ -201,7 +201,7 @@ export default function AudioPlayer({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isPlaying, isMuted]);
+  }, [togglePlay, toggleMute]);
 
   return (
     <div

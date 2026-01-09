@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, ReactNode } from "react";
+import React, { useEffect, useState, useCallback, ReactNode } from "react";
 
 export type AlertType = "success" | "error" | "info" | "warning";
 
@@ -98,6 +98,14 @@ export function Alert({
 
   const styles = alertStyles[type];
 
+  const handleClose = useCallback(() => {
+    setIsExiting(true);
+    setTimeout(() => {
+      setIsVisible(false);
+      onClose?.();
+    }, 200);
+  }, [onClose]);
+
   useEffect(() => {
     if (autoClose) {
       const timer = setTimeout(() => {
@@ -105,15 +113,7 @@ export function Alert({
       }, autoCloseDelay);
       return () => clearTimeout(timer);
     }
-  }, [autoClose, autoCloseDelay]);
-
-  const handleClose = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      setIsVisible(false);
-      onClose?.();
-    }, 200);
-  };
+  }, [autoClose, autoCloseDelay, handleClose]);
 
   if (!isVisible) return null;
 

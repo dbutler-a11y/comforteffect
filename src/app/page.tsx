@@ -9,7 +9,6 @@ import PayPalProvider from "@/components/PayPalProvider";
 import PayPalButton from "@/components/PayPalButton";
 
 export default function Home() {
-  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
   const [isCoachingModalOpen, setIsCoachingModalOpen] = useState(false);
 
   return (
