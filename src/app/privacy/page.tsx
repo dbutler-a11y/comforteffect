@@ -77,8 +77,8 @@ export default function PrivacyPolicy() {
             <p className="text-zinc-600">
               You have the right to access, update, or delete your personal information at any time.
               To exercise these rights, please contact us at{" "}
-              <a href="mailto:support@comforteffect.com" className="text-zinc-900 underline">
-                support@comforteffect.com
+              <a href="mailto:info@eulaproperties.com" className="text-zinc-900 underline">
+                info@eulaproperties.com
               </a>.
             </p>
           </section>
@@ -95,8 +95,8 @@ export default function PrivacyPolicy() {
             <h2 className="text-xl font-semibold text-zinc-900">8. Contact Us</h2>
             <p className="text-zinc-600">
               If you have any questions about this Privacy Policy, please contact us at{" "}
-              <a href="mailto:support@comforteffect.com" className="text-zinc-900 underline">
-                support@comforteffect.com
+              <a href="mailto:info@eulaproperties.com" className="text-zinc-900 underline">
+                info@eulaproperties.com
               </a>.
             </p>
           </section>

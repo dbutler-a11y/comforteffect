@@ -500,7 +500,7 @@ function PayPalUpsellSuccessContent() {
 
             <div className="space-y-3">
               <a
-                href="mailto:support@comforteffect.com"
+                href="mailto:info@eulaproperties.com"
                 className="btn-primary inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium"
               >
                 <svg

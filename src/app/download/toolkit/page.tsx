@@ -132,7 +132,7 @@ export default function ToolkitDownloadPage() {
             The Comfort Effect
           </Link>
           <a
-            href="mailto:support@comforteffect.com"
+            href="mailto:info@eulaproperties.com"
             className="btn-secondary px-5 py-2.5 rounded-full text-sm font-medium"
           >
             Need Help?
@@ -395,7 +395,7 @@ export default function ToolkitDownloadPage() {
               questions about the materials, our support team is here to help.
             </p>
             <a
-              href="mailto:support@comforteffect.com"
+              href="mailto:info@eulaproperties.com"
               className="btn-secondary inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium"
             >
               <svg
@@ -436,7 +436,7 @@ export default function ToolkitDownloadPage() {
                 Terms of Service
               </a>
               <a
-                href="mailto:support@comforteffect.com"
+                href="mailto:info@eulaproperties.com"
                 className="hover:text-zinc-900 transition-colors"
               >
                 Contact

@@ -268,7 +268,7 @@ export default function ThankYouPage() {
               your order or need assistance getting started, we&apos;re just an email away.
             </p>
             <a
-              href="mailto:support@comforteffect.com"
+              href="mailto:info@eulaproperties.com"
               className="btn-secondary inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium"
             >
               <svg
@@ -284,7 +284,7 @@ export default function ThankYouPage() {
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                 />
               </svg>
-              support@comforteffect.com
+              info@eulaproperties.com
             </a>
           </div>
         </div>
@@ -449,7 +449,7 @@ export default function ThankYouPage() {
                 Terms of Service
               </a>
               <a
-                href="mailto:support@comforteffect.com"
+                href="mailto:info@eulaproperties.com"
                 className="hover:text-zinc-900 transition-colors"
               >
                 Contact

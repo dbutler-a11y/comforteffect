@@ -113,8 +113,8 @@ export default function TermsOfService() {
             <h2 className="text-xl font-semibold text-zinc-900">10. Contact Information</h2>
             <p className="text-zinc-600">
               For questions about these Terms of Service, please contact us at{" "}
-              <a href="mailto:support@comforteffect.com" className="text-zinc-900 underline">
-                support@comforteffect.com
+              <a href="mailto:info@eulaproperties.com" className="text-zinc-900 underline">
+                info@eulaproperties.com
               </a>.
             </p>
           </section>
