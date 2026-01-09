@@ -60,10 +60,13 @@ export default function AdminDashboard() {
     { id: "1", path: "/", name: "Home", status: "working" },
     { id: "2", path: "/thank-you", name: "Thank You", status: "working" },
     { id: "3", path: "/download/toolkit", name: "Download", status: "working" },
-    { id: "4", path: "/paypal-success", name: "PayPal Success", status: "untested" },
-    { id: "5", path: "/paypal-upsell-success", name: "Upsell Success", status: "untested" },
+    { id: "4", path: "/paypal-success", name: "PayPal Success", status: "working" },
+    { id: "5", path: "/paypal-upsell-success", name: "Upsell Success", status: "working" },
     { id: "6", path: "/admin", name: "Admin", status: "working" },
-    { id: "7", path: "/manage-emails", name: "Email Manager", status: "untested" },
+    { id: "7", path: "/admin/emails", name: "Email Manager", status: "working" },
+    { id: "8", path: "/admin/team", name: "Team CRM", status: "working" },
+    { id: "9", path: "/admin/analytics", name: "Analytics", status: "working" },
+    { id: "10", path: "/admin/downloads", name: "Downloads", status: "working" },
   ]);
 
   const purchases: Purchase[] = [

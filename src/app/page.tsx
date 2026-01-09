@@ -645,9 +645,9 @@ export default function Home() {
             </div>
 
             <div className="flex gap-6 text-xs text-zinc-400">
-              <a href="#" className="hover:text-zinc-900 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-zinc-900 transition-colors">Terms of Service</a>
-              <a href="mailto:info@eulaproperties.com" className="hover:text-zinc-900 transition-colors">Contact</a>
+              <a href="/privacy" className="hover:text-zinc-900 transition-colors">Privacy Policy</a>
+              <a href="/terms" className="hover:text-zinc-900 transition-colors">Terms of Service</a>
+              <a href="mailto:support@comforteffect.com" className="hover:text-zinc-900 transition-colors">Contact</a>
             </div>
           </div>
 
